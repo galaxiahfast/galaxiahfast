@@ -1,16 +1,18 @@
-### Hi there 👋
+# Sobre Mí
 
-<!--
-**galaxiahfast/galaxiahfast** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+¡Hola! Soy [JULIAN], un programador con experiencia en varios lenguajes de programación y tecnologías web. Me gradué con una Licenciatura en Ciencias de la Computación (LCC) y he cursado estudios en la Facultad de Matemáticas (FMAT).
 
-Here are some ideas to get you started:
+## Lenguajes de Programación y Tecnologías
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- **HTML**: Dominio completo de la estructura de páginas web, incluyendo elementos y atributos avanzados.
+- **CSS**: Experiencia en diseño y estilos de páginas web, incluyendo uso de Flexbox y Grid.
+- **JavaScript**: Experiencia en desarrollo front-end, uso de frameworks y bibliotecas populares como React y Vue.js.
+- **Python**: Uso en desarrollo backend, scripting y automatización de tareas.
+- **Java**: Desarrollo de aplicaciones de escritorio y backend.
+- **SQL**: Experiencia con bases de datos relacionales, consultas complejas y optimización de rendimiento.
+
+## Experiencia Adicional
+
+Además de mi conocimiento técnico, tengo experiencia en el desarrollo de aplicaciones web completas, desde el diseño de la interfaz de usuario hasta la implementación del backend. También me mantengo al día con las últimas tendencias y tecnologías en el mundo de la programación.
+
+## Contacto
