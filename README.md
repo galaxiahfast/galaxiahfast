@@ -1,3 +1,7 @@
+## Presentación
+
+Soy un desarrollador con experiencia en múltiples lenguajes de programación y tecnologías modernas. Me especializo en el desarrollo de aplicaciones web, escritorio y móviles, con un enfoque en la calidad, eficiencia y soluciones innovadoras. Disfruto trabajar en entornos colaborativos y siempre estoy buscando aprender nuevas tecnologías para mejorar mis habilidades y ofrecer mejores soluciones a los clientes.
+
 ## Lenguajes de Programación y Tecnologías
 
 - **HTML**: Dominio de la estructura de páginas web, incluyendo elementos y atributos avanzados.
