@@ -1,6 +1,6 @@
 # 🙋‍♂️ Sobre Mí
 
-¡Hola! Soy Julian Ortiz, un programador apasionado con experiencia en varios lenguajes de programación y tecnologías web. Actualmente, estoy estudiando Licenciatura en Ciencias de la Computación (LCC) y he cursado estudios en la Facultad de Matemáticas (FMAT).
+¡Hola! Soy Julian Ortiz, un programador apasionado con experiencia en varios lenguajes de programación y tecnologías web. Actualmente, estoy estudiando Licenciatura en Ciencias de la Computación (LCC).
 
 ## 💻 Lenguajes de Programación y Tecnologías
 
