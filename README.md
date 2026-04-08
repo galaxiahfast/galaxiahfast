@@ -12,37 +12,32 @@
 <!-- https://pinetools.com/es/redondear-esquinas-imagen -->
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2ae594d7-71a6-439f-8a11-58848dffa4c8" width="40" style="border-radius: 22%;" alt="Icono 13">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/6991c340-313a-4096-918a-3af07c3bf869" width="40" style="border-radius: 22%;" alt="Icono 3">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/cbea2055-852d-42ff-83fc-f6c24876286b" width="40" style="border-radius: 22%;" alt="Icono 10">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/1b92bde7-a5c2-4436-af13-e1636b183abd" width="40" style="border-radius: 22%;" alt="Icono 1">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/64e3d897-8aec-4b05-b146-e8879c3489f3" width="40" style="border-radius: 22%;" alt="Icono 0">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/40d43975-5cda-454e-ab1c-0c8dc1009f92" width="40" style="border-radius: 22%;" alt="Icono 6">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/e3d391fa-f303-4cc9-956d-add0b4a473e4" width="40" style="border-radius: 22%;" alt="Icono 8">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/862d2a4a-037b-4cfb-8d9a-baa79d29ed00" width="40" style="border-radius: 22%;" alt="Icono 9">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/c1319c29-1104-4fd2-8b2a-2d8ea421d705" width="40" style="border-radius: 22%;" alt="Icono 2">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/19b5527a-274c-4fc4-b9ba-34c44d1f750c" width="40" style="border-radius: 22%;" alt="Icono 4">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/3425e251-a0f8-4bf9-92ee-70a600bdf262" width="40" style="border-radius: 22%;" alt="Icono 7">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/11bb0c5b-e69f-4670-b762-7dbcb4e1d033" width="40" style="border-radius: 22%;" alt="Icono 5">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/d96756b5-2bc7-41f3-bfd3-0e2d9b8f1883" width="40" style="border-radius: 22%;" alt="Icono 11">
-  &nbsp;
-  <img src="https://github.com/user-attachments/assets/0576cb5e-d0cf-4707-8ea0-cb3e282820b2" width="40" style="border-radius: 22%;" alt="Icono 12">
+  <img src="https://github.com/user-attachments/assets/c58fc54b-e3b2-4f8f-bca1-9e25c35cd6d0" width="36" style="border-radius: 22%;" alt="Photoshop">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/5681d35e-62b3-4ac1-96c1-daaf93299623" width="36" style="border-radius: 22%;" alt="CSS">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/fe9b6c77-45a7-44d7-b7ab-c2af4d0f862e" width="36" style="border-radius: 22%;" alt="C#">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/c937d8ea-fdb8-438b-8a61-e37bfeb0ec88" width="36" style="border-radius: 22%;" alt="C">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/6a6c70d0-a362-41d4-a3bc-8f734c7a1e72" width="36" style="border-radius: 22%;" alt="JavaScript">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/8b4d6ca7-3222-4c7e-90b3-c23be6bc47a1" width="36" style="border-radius: 22%;" alt="Ruby">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/89075351-49b3-4441-9eeb-72d9262c2ba7" width="36" style="border-radius: 22%;" alt="TypeScript">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/9e8a7d30-8cbe-4345-86fd-38431a0e7027" width="36" style="border-radius: 22%;" alt="Adonis">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/5f6a7bf7-99b6-4d6c-9e02-bfadb7638262" width="36" style="border-radius: 22%;" alt="Atom">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/e8d9decf-3b8c-4b8b-a3df-3bd55934b625" width="36" style="border-radius: 22%;" alt="Redux">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/9c623c46-5daa-4cdb-b857-ec4d354c072b" width="36" style="border-radius: 22%;" alt="Svelte">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/6fb176cd-5ec3-4dbf-80e5-1a3eb324125e" width="36" style="border-radius: 22%;" alt="WebAssembly">
+  &nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/9c35fd1d-0231-477e-8d3c-b2483acb7131" width="36" style="border-radius: 22%;" alt="Rocket">
 </p>
-
-
-
 
 
 
