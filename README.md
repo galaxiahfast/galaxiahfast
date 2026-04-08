@@ -1,12 +1,51 @@
 <p align="center">
   <img 
-    width="85%" 
+    width="100%" 
     height="auto" 
-    alt="Now that your eyes are open, make the sun jealous with your burning passion to start the day. Make the sun jealous or stay in bed." 
-    src="https://github.com/user-attachments/assets/e01f73f7-0d1d-414a-aa3f-9849d69338a9" 
-    style="border-radius: 15px; box-shadow: 0 4px 30px rgba(255, 165, 0, 0.4);"
+    alt="Gemini Generated Image" 
+    src="https://github.com/user-attachments/assets/2c74e784-cde5-4173-953b-add3ca04b5fe"
+    style="border-radius: 15px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); display: block;"
   />
 </p>
+
+
+<!-- https://pinetools.com/es/redondear-esquinas-imagen -->
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2ae594d7-71a6-439f-8a11-58848dffa4c8" width="40" style="border-radius: 22%;" alt="Icono 13">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/6991c340-313a-4096-918a-3af07c3bf869" width="40" style="border-radius: 22%;" alt="Icono 3">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/cbea2055-852d-42ff-83fc-f6c24876286b" width="40" style="border-radius: 22%;" alt="Icono 10">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/1b92bde7-a5c2-4436-af13-e1636b183abd" width="40" style="border-radius: 22%;" alt="Icono 1">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/64e3d897-8aec-4b05-b146-e8879c3489f3" width="40" style="border-radius: 22%;" alt="Icono 0">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/40d43975-5cda-454e-ab1c-0c8dc1009f92" width="40" style="border-radius: 22%;" alt="Icono 6">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/e3d391fa-f303-4cc9-956d-add0b4a473e4" width="40" style="border-radius: 22%;" alt="Icono 8">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/862d2a4a-037b-4cfb-8d9a-baa79d29ed00" width="40" style="border-radius: 22%;" alt="Icono 9">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/c1319c29-1104-4fd2-8b2a-2d8ea421d705" width="40" style="border-radius: 22%;" alt="Icono 2">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/19b5527a-274c-4fc4-b9ba-34c44d1f750c" width="40" style="border-radius: 22%;" alt="Icono 4">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/3425e251-a0f8-4bf9-92ee-70a600bdf262" width="40" style="border-radius: 22%;" alt="Icono 7">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/11bb0c5b-e69f-4670-b762-7dbcb4e1d033" width="40" style="border-radius: 22%;" alt="Icono 5">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/d96756b5-2bc7-41f3-bfd3-0e2d9b8f1883" width="40" style="border-radius: 22%;" alt="Icono 11">
+  &nbsp;
+  <img src="https://github.com/user-attachments/assets/0576cb5e-d0cf-4707-8ea0-cb3e282820b2" width="40" style="border-radius: 22%;" alt="Icono 12">
+</p>
+
+
+
+
+
+
 
 <h1 align="center">Bienvenido a mi espacio.</h1>
 <p align="center">
