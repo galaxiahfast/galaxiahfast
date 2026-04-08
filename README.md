@@ -1,6 +1,6 @@
 <p align="center">
   <img 
-    width="100%" 
+    width="900px" 
     height="auto" 
     alt="Gemini Generated Image" 
     src="https://github.com/user-attachments/assets/2c74e784-cde5-4173-953b-add3ca04b5fe"
@@ -8,8 +8,20 @@
   />
 </p>
 
+<p align="center">
+  <img 
+    width="900px" 
+    height="auto" 
+    alt="Gemini Generated Image" 
+    src="https://github.com/user-attachments/assets/1e1d3dde-709d-4841-bedb-58c5bff172ff"
+    style="border-radius: 15px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); display: block;"
+  />
+</p>
+
+
 
 <!-- https://pinetools.com/es/redondear-esquinas-imagen -->
+
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/c58fc54b-e3b2-4f8f-bca1-9e25c35cd6d0" width="36" style="border-radius: 22%;" alt="Photoshop">
@@ -38,6 +50,33 @@
   &nbsp;&nbsp;
   <img src="https://github.com/user-attachments/assets/9c35fd1d-0231-477e-8d3c-b2483acb7131" width="36" style="border-radius: 22%;" alt="Rocket">
 </p>
+
+
+
+
+
+
+## 💫 About Me
+A technical specialist based in **Mérida, Yucatán** 🇲🇽. Currently focused on network infrastructure and automation with Python.
+
+- 🔭 I’m currently working on network configurations for school institutions.
+- 🐍 I use **Python** for financial data analysis and investment tracking.
+- ⚡ Fun fact: I enjoy technical analysis of the US equity market.
+
+## 📊 My GitHub Stats
+<p align="left">
+  <img src="https://github-readme-stats.vercel.app/api?username=TU_USUARIO&show_icons=true&theme=dark" height="150" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TU_USUARIO&layout=compact&theme=dark" height="150" />
+</p>
+
+## 🛠️ Current Hardware & Tech
+- **Networking:** Ubiquiti UniFi, Grandstream GXP, Saxxon.
+- **Automation:** Python (Pandas), Excel VBA.
+
+
+
+
+
 
 
 
