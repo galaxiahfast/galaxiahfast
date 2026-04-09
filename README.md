@@ -1,6 +1,6 @@
 <p align="center">
   <img 
-    width="900px" 
+    width="100%" 
     height="auto" 
     alt="Gemini Generated Image" 
     src="https://github.com/user-attachments/assets/2c74e784-cde5-4173-953b-add3ca04b5fe"
@@ -10,10 +10,20 @@
 
 <p align="center">
   <img 
-    width="900px" 
+    width="100%" 
     height="auto" 
     alt="Gemini Generated Image" 
-    src="https://github.com/user-attachments/assets/1e1d3dde-709d-4841-bedb-58c5bff172ff"
+    src="https://github.com/user-attachments/assets/e518a150-0478-444b-8676-5734451c3dbf"
+    style="border-radius: 15px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); display: block;"
+  />
+</p>
+
+<p align="center">
+  <img 
+    width="26%" 
+    height="auto" 
+    alt="Gemini Generated Image" 
+    src="https://github.com/user-attachments/assets/7f1a9a94-4068-49c7-a9ab-89d23a3bceae"
     style="border-radius: 15px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); display: block;"
   />
 </p>
@@ -21,37 +31,6 @@
 
 
 <!-- https://pinetools.com/es/redondear-esquinas-imagen -->
-
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/c58fc54b-e3b2-4f8f-bca1-9e25c35cd6d0" width="36" style="border-radius: 22%;" alt="Photoshop">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/5681d35e-62b3-4ac1-96c1-daaf93299623" width="36" style="border-radius: 22%;" alt="CSS">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/fe9b6c77-45a7-44d7-b7ab-c2af4d0f862e" width="36" style="border-radius: 22%;" alt="C#">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/c937d8ea-fdb8-438b-8a61-e37bfeb0ec88" width="36" style="border-radius: 22%;" alt="C">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/6a6c70d0-a362-41d4-a3bc-8f734c7a1e72" width="36" style="border-radius: 22%;" alt="JavaScript">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/8b4d6ca7-3222-4c7e-90b3-c23be6bc47a1" width="36" style="border-radius: 22%;" alt="Ruby">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/89075351-49b3-4441-9eeb-72d9262c2ba7" width="36" style="border-radius: 22%;" alt="TypeScript">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/9e8a7d30-8cbe-4345-86fd-38431a0e7027" width="36" style="border-radius: 22%;" alt="Adonis">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/5f6a7bf7-99b6-4d6c-9e02-bfadb7638262" width="36" style="border-radius: 22%;" alt="Atom">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/e8d9decf-3b8c-4b8b-a3df-3bd55934b625" width="36" style="border-radius: 22%;" alt="Redux">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/9c623c46-5daa-4cdb-b857-ec4d354c072b" width="36" style="border-radius: 22%;" alt="Svelte">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/6fb176cd-5ec3-4dbf-80e5-1a3eb324125e" width="36" style="border-radius: 22%;" alt="WebAssembly">
-  &nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/9c35fd1d-0231-477e-8d3c-b2483acb7131" width="36" style="border-radius: 22%;" alt="Rocket">
-</p>
-
-
 
 
 
