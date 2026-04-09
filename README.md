@@ -23,11 +23,10 @@
     width="26%" 
     height="auto" 
     alt="Gemini Generated Image" 
-    src="https://github.com/user-attachments/assets/7f1a9a94-4068-49c7-a9ab-89d23a3bceae"
+    src="https://github.com/user-attachments/assets/dbcd2c80-5290-4a0f-bd71-5de52b747fab"
     style="border-radius: 15px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); display: block;"
   />
 </p>
-
 
 
 <!-- https://pinetools.com/es/redondear-esquinas-imagen -->
