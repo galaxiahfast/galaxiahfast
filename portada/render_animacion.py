@@ -6,6 +6,7 @@ import subprocess
 
 import imageio_ffmpeg
 from PIL import Image, ImageDraw, ImageFont
+from sprites_binarios import avion, nave, estacion
 
 
 CARPETA = Path(__file__).resolve().parent
@@ -19,7 +20,6 @@ FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 
 FUENTE = ImageFont.truetype(r"C:\Windows\Fonts\consola.ttf", 15)
 FUENTE_ESTRELLA = ImageFont.truetype(r"C:\Windows\Fonts\consola.ttf", 13)
-FUENTE_BOLA = ImageFont.truetype(r"C:\Windows\Fonts\consola.ttf", 8)
 RNG = random.Random(1977)
 ESTRELLAS = [(RNG.randrange(130, 1870), RNG.randrange(260, 5900),
               RNG.randrange(1, 5), RNG.random() * math.tau,
@@ -42,27 +42,17 @@ def dibujar_cometa(d, x, y):
                fill=(255, 239, 194, 245))
 
 
-def dibujar_bola(d, t):
-    """Bola de ramas rodando por la arena, formada por 0 y 1."""
-    cx = -130 + 560 * (t - 2)
-    cy = 7800 + 22 * math.sin(cx / 180)
-    giro = t * 7.5
-    for i in range(100):
-        angulo = math.tau * i / 100 + giro
-        radio = 20 + 3 * math.sin(i * 2.7)
-        x = cx + radio * math.cos(angulo)
-        y = cy + radio * math.sin(angulo)
-        if 0 <= x < ANCHO:
-            d.text((x, y), "1" if i % 2 else "0", font=FUENTE_BOLA,
-                   fill=(176, 157, 119, 230))
-    for i in range(32):
-        angulo = math.tau * i / 32 - giro * .8
-        radio = 5 + (i % 4) * 4
-        x = cx + radio * math.cos(angulo)
-        y = cy + radio * math.sin(angulo)
-        if 0 <= x < ANCHO:
-            d.text((x, y), "01"[i % 2], font=FUENTE_BOLA,
-                   fill=(142, 132, 110, 200))
+def destello(d, x, y, t, fase=0, dorado=False):
+    brillo = max(0, math.sin(math.tau * (3 * t / SEGUNDOS) + fase)) ** 5
+    if brillo < .08:
+        return
+    tono = int(90 + 165 * brillo)
+    color = ((255, min(255, tono + 10), int(tono * .58), 255) if dorado
+             else (tono, min(255, tono + 18), 255, 255))
+    f = FUENTE_ESTRELLA
+    for dx, dy, cifra in ((0, 0, "1"), (-15, 0, "0"), (15, 0, "0"),
+                          (0, -15, "0"), (0, 15, "0")):
+        d.text((x + dx, y + dy), cifra, font=f, fill=color)
 
 
 def render_video():
@@ -94,7 +84,23 @@ def render_video():
                 if -550 < x < ANCHO + 550:
                     y = y0 + .32 * (x + 550)
                     dibujar_cometa(d, x, y)
-            dibujar_bola(d, t)
+            for sx, sy, fase in ((320, 980, .3), (1530, 1160, 1.9),
+                                  (610, 3060, 3.4), (1740, 4700, 5.1)):
+                destello(d, sx, sy, t, fase)
+            for sx, sy, fase in ((320, 6690, .4), (870, 6380, 2.0),
+                                  (1710, 6810, 4.1)):
+                destello(d, sx, sy, t, fase, dorado=True)
+
+            estacion(d, 1000 + 8 * math.sin(math.tau * t / SEGUNDOS),
+                     455 + 16 * math.sin(math.tau * t / SEGUNDOS))
+            # Escuadrón en V, por encima de la ruta del avión.
+            xs = 2320 - 330 * (t - 1)
+            for dx, dy, tamano in ((0, 0, 12), (95, -105, 10),
+                                   (95, 105, 10), (190, -195, 8),
+                                   (190, 195, 8)):
+                nave(d, xs + dx, 2050 + dy, tamano)
+            # Biplano, de derecha a izquierda, a media altura del cielo.
+            avion(d, 2250 - 280 * t, 3630 + 35 * math.sin(math.tau * t / SEGUNDOS))
             imagen = Image.alpha_composite(base, capa).convert("RGB")
             proceso.stdin.write(imagen.tobytes())
             if (fotograma + 1) % 10 == 0:
