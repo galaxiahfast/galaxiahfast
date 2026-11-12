@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image
 
 CARPETA = Path(__file__).resolve().parent
-FUENTE = CARPETA / "nave_referencia.png"
+FUENTE = CARPETA / "nave_referencia.webp"
 DESTINO = CARPETA / "nave_usuario.png"
 
 
