@@ -5,8 +5,8 @@ import random
 import subprocess
 
 import imageio_ffmpeg
-from PIL import Image, ImageDraw, ImageFont
-from sprites_binarios import avion, nave
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from sprites_binarios import avion
 
 
 CARPETA = Path(__file__).resolve().parent
@@ -14,6 +14,7 @@ BASE = CARPETA / "fondo_binario_2000x8000.png"
 VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
 ESTACION = CARPETA / "estacion_3d.png"
+NAVE_USUARIO = CARPETA / "nave_usuario.png"
 ANCHO, ALTO = 2000, 8000
 FPS, SEGUNDOS = 20, 10
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
@@ -61,6 +62,13 @@ def destello(d, x, y, t, fase=0, dorado=False, tamano=20):
 def render_video():
     base = Image.open(BASE).convert("RGBA")
     estacion_3d = Image.open(ESTACION).convert("RGBA")
+    nave_usuario = Image.open(NAVE_USUARIO).convert("RGBA")
+    nave_usuario.thumbnail((540, 420))
+    margen_luz = 60
+    mascara_luz = Image.new("L", (nave_usuario.width + 120,
+                                  nave_usuario.height + 120))
+    mascara_luz.paste(nave_usuario.getchannel("A"), (margen_luz, margen_luz))
+    mascara_luz = mascara_luz.filter(ImageFilter.GaussianBlur(26))
     comando = [FFMPEG, "-y", "-f", "rawvideo", "-pixel_format", "rgb24",
                "-video_size", f"{ANCHO}x{ALTO}", "-framerate", str(FPS),
                "-i", "-", "-c:v", "libx264", "-preset", "veryfast",
@@ -103,12 +111,14 @@ def render_video():
                      + 8 * math.sin(math.tau * t / SEGUNDOS))
             ey = int(300 + 16 * math.sin(math.tau * t / SEGUNDOS))
             capa.alpha_composite(estacion_3d, (ex, ey))
-            # Escuadrón en V, por encima de la ruta del avión.
-            xs = 2320 - 330 * (t - 1)
-            for dx, dy, tamano in ((0, 0, 12), (95, -105, 10),
-                                   (95, 105, 10), (190, -195, 8),
-                                   (190, 195, 8)):
-                nave(d, xs + dx, 2050 + dy, tamano)
+            # Nave original del usuario: sus píxeles no se modifican.
+            nx = int(2250 - 300 * t)
+            ny = int(2070 + 22 * math.sin(math.tau * t / SEGUNDOS))
+            luz = .18 + .16 * (1 + math.sin(math.tau * 3 * t / SEGUNDOS)) / 2
+            halo = Image.new("RGBA", mascara_luz.size, (80, 175, 236, 0))
+            halo.putalpha(mascara_luz.point(lambda a: int(a * luz)))
+            capa.alpha_composite(halo, (nx - margen_luz, ny - margen_luz))
+            capa.alpha_composite(nave_usuario, (nx, ny))
             # Biplano, de derecha a izquierda, a media altura del cielo.
             avion(d, 2250 - 280 * t, 3630 + 35 * math.sin(math.tau * t / SEGUNDOS))
             imagen = Image.alpha_composite(base, capa).convert("RGB")
@@ -132,7 +142,7 @@ def render_gif():
              "drawbox=x=0:y=ih-32:w=iw:h=32:c=0x0d1117:t=fill")
     paleta = CARPETA / "paleta_temporal.png"
     try:
-        subprocess.run([FFMPEG, "-y", "-t", "1", "-i", str(VIDEO),
+        subprocess.run([FFMPEG, "-y", "-i", str(VIDEO),
                         "-vf", f"{borde},palettegen=max_colors=128:stats_mode=diff",
                         str(paleta)], check=True, stdout=subprocess.DEVNULL,
                        stderr=subprocess.PIPE)

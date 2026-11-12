@@ -15,15 +15,6 @@ AVION = (
     "            00000000                 ",
 )
 
-NAVE = (
-    "      010      ",
-    "  0011111100  ",
-    "00111111111100",
-    "  0011111100  ",
-    "      010      ",
-)
-
-
 def sprite(d, patron, x, y, tamano, color_1, color_0):
     f = ImageFont.truetype(FUENTE, tamano)
     paso = tamano * .61
@@ -36,10 +27,6 @@ def sprite(d, patron, x, y, tamano, color_1, color_0):
 
 def avion(d, x, y):
     sprite(d, AVION, x, y, 12, (238, 195, 124, 255), (133, 191, 211, 255))
-
-
-def nave(d, x, y, tamano=10):
-    sprite(d, NAVE, x, y, tamano, (155, 225, 227, 255), (93, 165, 193, 255))
 
 
 if __name__ == "__main__":
