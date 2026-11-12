@@ -6,7 +6,6 @@ import subprocess
 
 import imageio_ffmpeg
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
-from sprites_binarios import avion
 
 
 CARPETA = Path(__file__).resolve().parent
@@ -15,6 +14,7 @@ VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
 ESTACION = CARPETA / "estacion_3d.png"
 NAVE_USUARIO = CARPETA / "nave_usuario.png"
+AVION_USUARIO = CARPETA / "avion_usuario.png"
 ANCHO, ALTO = 2000, 8000
 FPS, SEGUNDOS = 20, 10
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
@@ -63,7 +63,9 @@ def render_video():
     base = Image.open(BASE).convert("RGBA")
     estacion_3d = Image.open(ESTACION).convert("RGBA")
     nave_usuario = Image.open(NAVE_USUARIO).convert("RGBA")
-    nave_usuario.thumbnail((540, 420))
+    nave_usuario.thumbnail((135, 105))
+    avion_usuario = Image.open(AVION_USUARIO).convert("RGBA")
+    avion_usuario.thumbnail((850, 350))
     margen_luz = 60
     mascara_luz = Image.new("L", (nave_usuario.width + 120,
                                   nave_usuario.height + 120))
@@ -119,8 +121,10 @@ def render_video():
             halo.putalpha(mascara_luz.point(lambda a: int(a * luz)))
             capa.alpha_composite(halo, (nx - margen_luz, ny - margen_luz))
             capa.alpha_composite(nave_usuario, (nx, ny))
-            # Biplano, de derecha a izquierda, a media altura del cielo.
-            avion(d, 2250 - 280 * t, 3630 + 35 * math.sin(math.tau * t / SEGUNDOS))
+            # Avión y cartel originales, de derecha a izquierda.
+            ax = int(2250 - 350 * t)
+            ay = int(3620 + 35 * math.sin(math.tau * t / SEGUNDOS))
+            capa.alpha_composite(avion_usuario, (ax, ay))
             imagen = Image.alpha_composite(base, capa).convert("RGB")
             proceso.stdin.write(imagen.tobytes())
             if (fotograma + 1) % 10 == 0:
