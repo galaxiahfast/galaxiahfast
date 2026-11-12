@@ -14,6 +14,7 @@ VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
 ESTACION = CARPETA / "estacion_3d.png"
 NAVE_USUARIO = CARPETA / "nave_usuario.png"
+NAVE_REDONDA = CARPETA / "nave_redonda.png"
 AVION_USUARIO = CARPETA / "avion_usuario.png"
 ANCHO, ALTO = 2000, 8000
 FPS, SEGUNDOS = 20, 10
@@ -62,7 +63,9 @@ def destello(d, x, y, t, fase=0, dorado=False, tamano=20):
 def render_video():
     base = Image.open(BASE).convert("RGBA")
     estacion_3d = Image.open(ESTACION).convert("RGBA")
-    nave_fuente = Image.open(NAVE_USUARIO).convert("RGBA")
+    nave_fuente = Image.open(NAVE_REDONDA).convert("RGBA")
+    satelite = Image.open(NAVE_USUARIO).convert("RGBA")
+    satelite.thumbnail((220, 220))
     naves = []
     margen_luz = 40
     for ancho in (220, 220, 220):
@@ -132,9 +135,13 @@ def render_video():
                 halo.putalpha(mascara.point(lambda a: int(a * luz)))
                 capa.alpha_composite(halo, (nx - margen_luz, ny - margen_luz))
                 capa.alpha_composite(nave, (nx, ny))
+            for sx, sy, fase in ((430, 1680, 0), (1390, 2760, 2), (710, 3320, 4)):
+                dx = int(9 * math.sin(math.tau * t / SEGUNDOS + fase))
+                dy = int(12 * math.sin(math.tau * t / SEGUNDOS + fase))
+                capa.alpha_composite(satelite, (sx + dx, sy + dy))
             # Avión y cartel originales, de derecha a izquierda.
             ax = int(2250 - 320 * t + 35 * math.sin(math.tau * t / SEGUNDOS))
-            ay = int(6140 + 45 * math.sin(math.tau * t / SEGUNDOS))
+            ay = int(5870 + 45 * math.sin(math.tau * t / SEGUNDOS))
             capa.alpha_composite(avion_usuario, (ax, ay))
             imagen = Image.alpha_composite(base, capa).convert("RGB")
             proceso.stdin.write(imagen.tobytes())
