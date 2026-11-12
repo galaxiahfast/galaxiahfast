@@ -6,13 +6,14 @@ import subprocess
 
 import imageio_ffmpeg
 from PIL import Image, ImageDraw, ImageFont
-from sprites_binarios import avion, nave, estacion
+from sprites_binarios import avion, nave
 
 
 CARPETA = Path(__file__).resolve().parent
 BASE = CARPETA / "fondo_binario_2000x8000.png"
 VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
+ESTACION = CARPETA / "estacion_binaria.png"
 ANCHO, ALTO = 2000, 8000
 FPS, SEGUNDOS = 20, 10
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
@@ -46,17 +47,18 @@ def destello(d, x, y, t, fase=0, dorado=False):
     brillo = max(0, math.sin(math.tau * (3 * t / SEGUNDOS) + fase)) ** 5
     if brillo < .08:
         return
-    tono = int(90 + 165 * brillo)
-    color = ((255, min(255, tono + 10), int(tono * .58), 255) if dorado
-             else (tono, min(255, tono + 18), 255, 255))
-    f = FUENTE_ESTRELLA
-    for dx, dy, cifra in ((0, 0, "1"), (-15, 0, "0"), (15, 0, "0"),
-                          (0, -15, "0"), (0, 15, "0")):
-        d.text((x + dx, y + dy), cifra, font=f, fill=color)
+    longitud = int(6 + 16 * brillo)
+    alfa = int(90 + 165 * brillo)
+    color = (255, 217, 121, alfa) if dorado else (194, 225, 255, alfa)
+    d.line((x - longitud, y, x + longitud, y), fill=color, width=1)
+    d.line((x, y - longitud, x, y + longitud), fill=color, width=1)
+    d.point((x, y), fill=(255, 250, 222, 255))
 
 
 def render_video():
     base = Image.open(BASE).convert("RGBA")
+    estacion_usuario = Image.open(ESTACION).convert("RGBA")
+    estacion_usuario.thumbnail((880, 720))
     comando = [FFMPEG, "-y", "-f", "rawvideo", "-pixel_format", "rgb24",
                "-video_size", f"{ANCHO}x{ALTO}", "-framerate", str(FPS),
                "-i", "-", "-c:v", "libx264", "-preset", "veryfast",
@@ -91,8 +93,10 @@ def render_video():
                                   (1710, 6810, 4.1)):
                 destello(d, sx, sy, t, fase, dorado=True)
 
-            estacion(d, 1000 + 8 * math.sin(math.tau * t / SEGUNDOS),
-                     455 + 16 * math.sin(math.tau * t / SEGUNDOS))
+            ex = int((ANCHO - estacion_usuario.width) / 2
+                     + 8 * math.sin(math.tau * t / SEGUNDOS))
+            ey = int(350 + 16 * math.sin(math.tau * t / SEGUNDOS))
+            capa.alpha_composite(estacion_usuario, (ex, ey))
             # Escuadrón en V, por encima de la ruta del avión.
             xs = 2320 - 330 * (t - 1)
             for dx, dy, tamano in ((0, 0, 12), (95, -105, 10),
@@ -133,6 +137,13 @@ def render_gif():
                  key=lambda q: sum((pix[q[0], q[1]][i] - destino[i]) ** 2
                                    for i in range(3)))
         pix[xy] = destino
+        # H.264 introduce varios tonos casi idénticos en zonas que eran lisas.
+        # Unificarlos evita un rectángulo ligeramente más oscuro en GitHub.
+        for yy in range(p.height):
+            for xx in range(p.width):
+                r, g, b = pix[xx, yy]
+                if 8 <= r <= 15 and 13 <= g <= 19 and 19 <= b <= 26:
+                    pix[xx, yy] = destino
         p.save(paleta)
         filtro = f"[0:v]{borde}[v];[v][1:v]paletteuse=dither=none"
         subprocess.run([FFMPEG, "-y", "-i", str(VIDEO), "-i", str(paleta),

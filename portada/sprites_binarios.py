@@ -42,31 +42,6 @@ def nave(d, x, y, tamano=10):
     sprite(d, NAVE, x, y, tamano, (155, 225, 227, 255), (93, 165, 193, 255))
 
 
-def estacion(d, x, y):
-    # Paneles solares a ambos lados y núcleo central.
-    f = ImageFont.truetype(FUENTE, 12)
-    for lado in (-1, 1):
-        for fila in range(12):
-            for columna in range(13):
-                px = x + lado * (98 + columna * 12)
-                py = y + fila * 12
-                d.text((px, py), "01"[(fila + columna) % 2], font=f,
-                       fill=(83, 155, 190, 225))
-        for columna in range(7):
-            px = x + lado * (15 + columna * 12)
-            d.text((px, y + 67), "1", font=f, fill=(178, 210, 220, 255))
-    nucleo = (
-        "  00111100  ",
-        " 0111111110 ",
-        "001111111100",
-        "001111111100",
-        " 0111111110 ",
-        "  00111100  ",
-    )
-    sprite(d, nucleo, x - 38, y + 35, 11,
-           (208, 224, 218, 255), (102, 165, 186, 255))
-
-
 if __name__ == "__main__":
     im = Image.new("RGB", (520, 160), (13, 17, 23))
     avion(ImageDraw.Draw(im), 40, 25)
