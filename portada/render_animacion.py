@@ -43,16 +43,19 @@ def dibujar_cometa(d, x, y):
                fill=(255, 239, 194, 245))
 
 
-def destello(d, x, y, t, fase=0, dorado=False):
+def destello(d, x, y, t, fase=0, dorado=False, tamano=20):
     brillo = max(0, math.sin(math.tau * (3 * t / SEGUNDOS) + fase)) ** 5
     if brillo < .08:
         return
-    longitud = int(6 + 16 * brillo)
-    alfa = int(90 + 165 * brillo)
-    color = (255, 217, 121, alfa) if dorado else (194, 225, 255, alfa)
+    longitud = int(tamano * brillo)
+    alfa = int(70 + 185 * brillo)
+    color = (255, 215, 117, alfa) if dorado else (197, 229, 255, alfa)
+    halo = (255, 196, 99, 60) if dorado else (120, 190, 245, 60)
+    d.line((x - longitud - 5, y, x + longitud + 5, y), fill=halo, width=3)
+    d.line((x, y - longitud - 5, x, y + longitud + 5), fill=halo, width=3)
     d.line((x - longitud, y, x + longitud, y), fill=color, width=1)
     d.line((x, y - longitud, x, y + longitud), fill=color, width=1)
-    d.point((x, y), fill=(255, 250, 222, 255))
+    d.point((x, y), fill=(255, 252, 227, 255))
 
 
 def render_video():
@@ -86,12 +89,16 @@ def render_video():
                 if -550 < x < ANCHO + 550:
                     y = y0 + .32 * (x + 550)
                     dibujar_cometa(d, x, y)
-            for sx, sy, fase in ((320, 980, .3), (1530, 1160, 1.9),
-                                  (610, 3060, 3.4), (1740, 4700, 5.1)):
-                destello(d, sx, sy, t, fase)
-            for sx, sy, fase in ((320, 6690, .4), (870, 6380, 2.0),
-                                  (1710, 6810, 4.1)):
-                destello(d, sx, sy, t, fase, dorado=True)
+            for sx, sy, fase, tamano in (
+                    (320, 980, .3, 13), (1530, 1160, 1.9, 28),
+                    (610, 3060, 3.4, 19), (1740, 4700, 5.1, 34),
+                    (910, 1390, 2.1, 9), (260, 2330, 4.8, 24),
+                    (1360, 3300, .9, 15), (1150, 5280, 3.8, 27)):
+                destello(d, sx, sy, t, fase, tamano=tamano)
+            for sx, sy, fase, tamano in (
+                    (338, 6720, .4, 12), (899, 6416, 2.0, 20),
+                    (1728, 6840, 4.1, 13)):
+                destello(d, sx, sy, t, fase, dorado=True, tamano=tamano)
 
             ex = int((ANCHO - estacion_usuario.width) / 2
                      + 8 * math.sin(math.tau * t / SEGUNDOS))
