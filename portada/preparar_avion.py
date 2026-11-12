@@ -26,7 +26,11 @@ def main():
             r, g, b = src[x, y]
             tinta = 255 - min(r, g, b)
             alfa = max(0, min(255, (tinta - 10) * 9))
-            dst[x, y] = (r, g, b, alfa)
+            # El nombre negro del cartel se pierde sobre el cielo oscuro.
+            if 530 <= x <= 1120 and 125 <= y <= 215 and max(r, g, b) < 115:
+                dst[x, y] = (229, 237, 243, alfa)
+            else:
+                dst[x, y] = (r, g, b, alfa)
     salida.crop(salida.getbbox()).save(DESTINO)
     print(DESTINO)
 

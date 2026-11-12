@@ -62,15 +62,18 @@ def destello(d, x, y, t, fase=0, dorado=False, tamano=20):
 def render_video():
     base = Image.open(BASE).convert("RGBA")
     estacion_3d = Image.open(ESTACION).convert("RGBA")
-    nave_usuario = Image.open(NAVE_USUARIO).convert("RGBA")
-    nave_usuario.thumbnail((135, 105))
+    nave_fuente = Image.open(NAVE_USUARIO).convert("RGBA")
+    naves = []
+    margen_luz = 40
+    for ancho in (135, 110, 95):
+        nave = nave_fuente.copy()
+        nave.thumbnail((ancho, 105))
+        mascara = Image.new("L", (nave.width + 80, nave.height + 80))
+        mascara.paste(nave.getchannel("A"), (margen_luz, margen_luz))
+        mascara = mascara.filter(ImageFilter.GaussianBlur(20))
+        naves.append((nave, mascara))
     avion_usuario = Image.open(AVION_USUARIO).convert("RGBA")
-    avion_usuario.thumbnail((850, 350))
-    margen_luz = 60
-    mascara_luz = Image.new("L", (nave_usuario.width + 120,
-                                  nave_usuario.height + 120))
-    mascara_luz.paste(nave_usuario.getchannel("A"), (margen_luz, margen_luz))
-    mascara_luz = mascara_luz.filter(ImageFilter.GaussianBlur(26))
+    avion_usuario.thumbnail((600, 260))
     comando = [FFMPEG, "-y", "-f", "rawvideo", "-pixel_format", "rgb24",
                "-video_size", f"{ANCHO}x{ALTO}", "-framerate", str(FPS),
                "-i", "-", "-c:v", "libx264", "-preset", "veryfast",
@@ -113,17 +116,25 @@ def render_video():
                      + 8 * math.sin(math.tau * t / SEGUNDOS))
             ey = int(300 + 16 * math.sin(math.tau * t / SEGUNDOS))
             capa.alpha_composite(estacion_3d, (ex, ey))
-            # Nave original del usuario: sus píxeles no se modifican.
-            nx = int(2250 - 300 * t)
-            ny = int(2070 + 22 * math.sin(math.tau * t / SEGUNDOS))
-            luz = .18 + .16 * (1 + math.sin(math.tau * 3 * t / SEGUNDOS)) / 2
-            halo = Image.new("RGBA", mascara_luz.size, (80, 175, 236, 0))
-            halo.putalpha(mascara_luz.point(lambda a: int(a * luz)))
-            capa.alpha_composite(halo, (nx - margen_luz, ny - margen_luz))
-            capa.alpha_composite(nave_usuario, (nx, ny))
+            # Tres copias del diseño aportado, con recorridos independientes.
+            posiciones = (
+                (2250 - 430 * (t - .7), 1950 + 100 * math.sin(t * 1.4)),
+                (-250 + 400 * (t - 2), 2600 + 75 * math.sin(t * 1.7)),
+                (550 + 750 * math.sin(math.tau * t / SEGUNDOS),
+                 3020 + 60 * math.sin(math.tau * t / SEGUNDOS)),
+            )
+            for i, ((nave, mascara), (px, py)) in enumerate(zip(naves, posiciones)):
+                nx, ny = int(px), int(py)
+                if nx + nave.width < -40 or nx > ANCHO + 40:
+                    continue
+                luz = .16 + .18 * (1 + math.sin(math.tau * 3 * t / SEGUNDOS + i)) / 2
+                halo = Image.new("RGBA", mascara.size, (80, 175, 236, 0))
+                halo.putalpha(mascara.point(lambda a: int(a * luz)))
+                capa.alpha_composite(halo, (nx - margen_luz, ny - margen_luz))
+                capa.alpha_composite(nave, (nx, ny))
             # Avión y cartel originales, de derecha a izquierda.
-            ax = int(2250 - 350 * t)
-            ay = int(3620 + 35 * math.sin(math.tau * t / SEGUNDOS))
+            ax = int(2250 - 320 * t + 35 * math.sin(math.tau * t / SEGUNDOS))
+            ay = int(3620 + 60 * math.sin(math.tau * t / SEGUNDOS))
             capa.alpha_composite(avion_usuario, (ax, ay))
             imagen = Image.alpha_composite(base, capa).convert("RGB")
             proceso.stdin.write(imagen.tobytes())
