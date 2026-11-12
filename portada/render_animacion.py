@@ -65,7 +65,7 @@ def dibujar_bola(d, t):
                    fill=(142, 132, 110, 200))
 
 
-def main():
+def render_video():
     base = Image.open(BASE).convert("RGBA")
     comando = [FFMPEG, "-y", "-f", "rawvideo", "-pixel_format", "rgb24",
                "-video_size", f"{ANCHO}x{ALTO}", "-framerate", str(FPS),
@@ -105,12 +105,41 @@ def main():
     if proceso.wait() != 0:
         raise RuntimeError(error[-4000:])
 
-    # Paleta compartida y compresión de cambios entre fotogramas.
-    filtro = "fps=20,split[a][b];[a]palettegen=max_colors=64:stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle"
-    comando_gif = [FFMPEG, "-y", "-i", str(VIDEO), "-filter_complex", filtro,
-                   "-loop", "0", str(GIF)]
-    subprocess.run(comando_gif, check=True, stdout=subprocess.DEVNULL,
-                   stderr=subprocess.PIPE)
+
+
+def render_gif():
+    # La paleta fija mantiene #0D1117 idéntico al fondo de GitHub.
+    borde = ("format=rgb24,"
+             "drawbox=x=0:y=0:w=32:h=ih:c=0x0d1117:t=fill,"
+             "drawbox=x=iw-32:y=0:w=32:h=ih:c=0x0d1117:t=fill,"
+             "drawbox=x=0:y=0:w=iw:h=32:c=0x0d1117:t=fill,"
+             "drawbox=x=0:y=ih-32:w=iw:h=32:c=0x0d1117:t=fill")
+    paleta = CARPETA / "paleta_temporal.png"
+    try:
+        subprocess.run([FFMPEG, "-y", "-t", "1", "-i", str(VIDEO),
+                        "-vf", f"{borde},palettegen=max_colors=128:stats_mode=diff",
+                        str(paleta)], check=True, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.PIPE)
+        p = Image.open(paleta).convert("RGB")
+        pix = p.load()
+        destino = (13, 17, 23)
+        xy = min(((x, y) for y in range(p.height) for x in range(p.width)),
+                 key=lambda q: sum((pix[q[0], q[1]][i] - destino[i]) ** 2
+                                   for i in range(3)))
+        pix[xy] = destino
+        p.save(paleta)
+        filtro = f"[0:v]{borde}[v];[v][1:v]paletteuse=dither=none"
+        subprocess.run([FFMPEG, "-y", "-i", str(VIDEO), "-i", str(paleta),
+                        "-filter_complex", filtro, "-loop", "0", str(GIF)],
+                       check=True, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.PIPE)
+    finally:
+        paleta.unlink(missing_ok=True)
+
+
+def main():
+    render_video()
+    render_gif()
     print(VIDEO)
     print(GIF)
 
