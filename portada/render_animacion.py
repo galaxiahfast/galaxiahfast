@@ -13,7 +13,7 @@ CARPETA = Path(__file__).resolve().parent
 BASE = CARPETA / "fondo_binario_2000x8000.png"
 VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
-ESTACION = CARPETA / "estacion_binaria.png"
+ESTACION = CARPETA / "estacion_3d.png"
 ANCHO, ALTO = 2000, 8000
 FPS, SEGUNDOS = 20, 10
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
@@ -60,8 +60,7 @@ def destello(d, x, y, t, fase=0, dorado=False, tamano=20):
 
 def render_video():
     base = Image.open(BASE).convert("RGBA")
-    estacion_usuario = Image.open(ESTACION).convert("RGBA")
-    estacion_usuario.thumbnail((880, 720))
+    estacion_3d = Image.open(ESTACION).convert("RGBA")
     comando = [FFMPEG, "-y", "-f", "rawvideo", "-pixel_format", "rgb24",
                "-video_size", f"{ANCHO}x{ALTO}", "-framerate", str(FPS),
                "-i", "-", "-c:v", "libx264", "-preset", "veryfast",
@@ -100,10 +99,10 @@ def render_video():
                     (1728, 6840, 4.1, 13)):
                 destello(d, sx, sy, t, fase, dorado=True, tamano=tamano)
 
-            ex = int((ANCHO - estacion_usuario.width) / 2
+            ex = int((ANCHO - estacion_3d.width) / 2
                      + 8 * math.sin(math.tau * t / SEGUNDOS))
-            ey = int(350 + 16 * math.sin(math.tau * t / SEGUNDOS))
-            capa.alpha_composite(estacion_usuario, (ex, ey))
+            ey = int(300 + 16 * math.sin(math.tau * t / SEGUNDOS))
+            capa.alpha_composite(estacion_3d, (ex, ey))
             # Escuadrón en V, por encima de la ruta del avión.
             xs = 2320 - 330 * (t - 1)
             for dx, dy, tamano in ((0, 0, 12), (95, -105, 10),
