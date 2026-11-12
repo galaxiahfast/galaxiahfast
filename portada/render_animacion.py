@@ -13,13 +13,13 @@ BASE = CARPETA / "fondo_binario_2000x8000.png"
 VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
 ANCHO, ALTO = 2000, 8000
-FPS, SEGUNDOS = 10, 10
+FPS, SEGUNDOS = 20, 10
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 
 
 FUENTE = ImageFont.truetype(r"C:\Windows\Fonts\consola.ttf", 15)
 FUENTE_ESTRELLA = ImageFont.truetype(r"C:\Windows\Fonts\consola.ttf", 13)
-FUENTE_BOLA = ImageFont.truetype(r"C:\Windows\Fonts\consola.ttf", 13)
+FUENTE_BOLA = ImageFont.truetype(r"C:\Windows\Fonts\consola.ttf", 8)
 RNG = random.Random(1977)
 ESTRELLAS = [(RNG.randrange(130, 1870), RNG.randrange(260, 5900),
               RNG.randrange(1, 5), RNG.random() * math.tau,
@@ -49,7 +49,7 @@ def dibujar_bola(d, t):
     giro = t * 7.5
     for i in range(100):
         angulo = math.tau * i / 100 + giro
-        radio = 53 + 10 * math.sin(i * 2.7)
+        radio = 20 + 3 * math.sin(i * 2.7)
         x = cx + radio * math.cos(angulo)
         y = cy + radio * math.sin(angulo)
         if 0 <= x < ANCHO:
@@ -57,7 +57,7 @@ def dibujar_bola(d, t):
                    fill=(176, 157, 119, 230))
     for i in range(32):
         angulo = math.tau * i / 32 - giro * .8
-        radio = 14 + (i % 4) * 8
+        radio = 5 + (i % 4) * 4
         x = cx + radio * math.cos(angulo)
         y = cy + radio * math.sin(angulo)
         if 0 <= x < ANCHO:
@@ -84,9 +84,11 @@ def main():
                 alfa = int(25 + 220 * pulso ** 4)
                 d.text((sx, sy), digito, font=FUENTE_ESTRELLA,
                        fill=(205, 229, 247, alfa))
-            for inicio, y0, velocidad in ((.7, 1030, 1840),
-                                          (3.8, 2640, 1900),
-                                          (6.8, 4060, 1800)):
+            for inicio, y0, velocidad in ((.5, 700, 1900),
+                                          (2.3, 1730, 1840),
+                                          (4.1, 2790, 1960),
+                                          (5.9, 3850, 1880),
+                                          (7.7, 4850, 1920)):
                 tiempo = t - inicio
                 x = -550 + velocidad * tiempo
                 if -550 < x < ANCHO + 550:
@@ -104,7 +106,7 @@ def main():
         raise RuntimeError(error[-4000:])
 
     # Paleta compartida y compresión de cambios entre fotogramas.
-    filtro = "fps=10,split[a][b];[a]palettegen=max_colors=64:stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle"
+    filtro = "fps=20,split[a][b];[a]palettegen=max_colors=64:stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle"
     comando_gif = [FFMPEG, "-y", "-i", str(VIDEO), "-filter_complex", filtro,
                    "-loop", "0", str(GIF)]
     subprocess.run(comando_gif, check=True, stdout=subprocess.DEVNULL,
