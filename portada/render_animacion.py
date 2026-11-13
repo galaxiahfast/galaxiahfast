@@ -17,7 +17,6 @@ ESTACION = CARPETA / "estacion_pixel.png"
 NAVE_USUARIO = CARPETA / "nave_usuario.png"
 NAVE_REDONDA = CARPETA / "nave_redonda.png"
 AVION_USUARIO = CARPETA / "avion_usuario.png"
-ASTRONAUTA = CARPETA / "astronauta_usuario.png"
 ANCHO, ALTO = 2000, 8000
 FPS, SEGUNDOS = 20, 10
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
@@ -68,13 +67,11 @@ def render_video():
     nave_fuente = Image.open(NAVE_REDONDA).convert("RGBA")
     satelite = Image.open(NAVE_USUARIO).convert("RGBA")
     satelite.thumbnail((220, 220))
-    astronauta = Image.open(ASTRONAUTA).convert("RGBA")
-    astronauta.thumbnail((105, 105))
     naves = []
     margen_luz = 40
-    for ancho in (140, 140, 140, 140):
+    for ancho in (70, 70, 70, 70):
         nave = nave_fuente.copy()
-        nave.thumbnail((ancho, 140))
+        nave.thumbnail((ancho, 70))
         mascara = Image.new("L", (nave.width + 80, nave.height + 80))
         mascara.paste(nave.getchannel("A"), (margen_luz, margen_luz))
         mascara = mascara.filter(ImageFilter.GaussianBlur(20))
@@ -144,13 +141,6 @@ def render_video():
                 dx = int(9 * math.sin(math.tau * t / SEGUNDOS + fase))
                 dy = int(12 * math.sin(math.tau * t / SEGUNDOS + fase))
                 capa.alpha_composite(satelite, (sx + dx, sy + dy))
-            for sx, sy, fase in ((650, 1730, 0), (1280, 2790, 2), (920, 3370, 4)):
-                dx = int(14 * math.sin(math.tau * 5 * t / SEGUNDOS + fase))
-                dy = int(18 * math.sin(math.tau * 4 * t / SEGUNDOS + fase))
-                capa.alpha_composite(astronauta, (sx + dx, sy + dy))
-            for sx, sy, fase in ((645, 1780, .2), (1380, 2840, 2.2),
-                                  (915, 3420, 4.2)):
-                destello(d, sx, sy, t, fase, tamano=7)
             # Avión y cartel originales, de derecha a izquierda.
             ax = int(2250 - 320 * t + 35 * math.sin(math.tau * t / SEGUNDOS))
             ay = int(5870 + 45 * math.sin(math.tau * t / SEGUNDOS))
