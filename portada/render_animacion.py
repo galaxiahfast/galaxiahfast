@@ -69,7 +69,7 @@ def render_video():
     satelite = Image.open(NAVE_USUARIO).convert("RGBA")
     satelite.thumbnail((220, 220))
     astronauta = Image.open(ASTRONAUTA).convert("RGBA")
-    astronauta.thumbnail((70, 70))
+    astronauta.thumbnail((105, 105))
     naves = []
     margen_luz = 40
     for ancho in (140, 140, 140, 140):
@@ -121,10 +121,10 @@ def render_video():
 
             # Cuatro naves: distintas velocidades y alturas.
             posiciones = (
-                (2250 - 390 * t, 640 + 35 * math.sin(t * 1.4)),
-                (-260 + 330 * t, 1710 + 30 * math.sin(t * 1.6)),
-                (2200 - 300 * t, 3610 + 20 * math.sin(t * 1.2)),
-                (-250 + 260 * t, 2700 + 45 * math.sin(t * 1.3)),
+                (2250 - 520 * t, 640 + 35 * math.sin(t * 2.1)),
+                (-260 + 450 * t, 1710 + 30 * math.sin(t * 2.4)),
+                (2200 - 420 * t, 3610 + 20 * math.sin(t * 1.9)),
+                (-250 + 380 * t, 2700 + 45 * math.sin(t * 2.0)),
             )
             for i, ((nave, mascara), (px, py)) in enumerate(zip(naves, posiciones)):
                 nx, ny = int(px), int(py)
@@ -144,10 +144,13 @@ def render_video():
                 dx = int(9 * math.sin(math.tau * t / SEGUNDOS + fase))
                 dy = int(12 * math.sin(math.tau * t / SEGUNDOS + fase))
                 capa.alpha_composite(satelite, (sx + dx, sy + dy))
-            for sx, sy, fase in ((1510, 1300, 0), (260, 2500, 2), (1550, 3900, 4)):
-                dx = int(18 * math.sin(math.tau * t / SEGUNDOS + fase))
-                dy = int(22 * math.sin(math.tau * t / SEGUNDOS + fase))
+            for sx, sy, fase in ((650, 1730, 0), (1280, 2790, 2), (920, 3370, 4)):
+                dx = int(14 * math.sin(math.tau * 5 * t / SEGUNDOS + fase))
+                dy = int(18 * math.sin(math.tau * 4 * t / SEGUNDOS + fase))
                 capa.alpha_composite(astronauta, (sx + dx, sy + dy))
+            for sx, sy, fase in ((645, 1780, .2), (1380, 2840, 2.2),
+                                  (915, 3420, 4.2)):
+                destello(d, sx, sy, t, fase, tamano=7)
             # Avión y cartel originales, de derecha a izquierda.
             ax = int(2250 - 320 * t + 35 * math.sin(math.tau * t / SEGUNDOS))
             ay = int(5870 + 45 * math.sin(math.tau * t / SEGUNDOS))
