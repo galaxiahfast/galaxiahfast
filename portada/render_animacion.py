@@ -12,6 +12,7 @@ CARPETA = Path(__file__).resolve().parent
 BASE = CARPETA / "fondo_binario_2000x8000.png"
 VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
+GIF_README = CARPETA / "portada_readme_800x3200.gif"
 ESTACION = CARPETA / "estacion_3d.png"
 NAVE_USUARIO = CARPETA / "nave_usuario.png"
 NAVE_REDONDA = CARPETA / "nave_redonda.png"
@@ -68,9 +69,9 @@ def render_video():
     satelite.thumbnail((220, 220))
     naves = []
     margen_luz = 40
-    for ancho in (140, 140, 140):
+    for ancho in (35, 35, 35):
         nave = nave_fuente.copy()
-        nave.thumbnail((ancho, 140))
+        nave.thumbnail((ancho, 35))
         mascara = Image.new("L", (nave.width + 80, nave.height + 80))
         mascara.paste(nave.getchannel("A"), (margen_luz, margen_luz))
         mascara = mascara.filter(ImageFilter.GaussianBlur(20))
@@ -192,11 +193,44 @@ def render_gif():
         paleta.unlink(missing_ok=True)
 
 
+def render_gif_readme():
+    """Vista ligera para GitHub; el GIF original conserva 2000 × 8000."""
+    paleta = CARPETA / "paleta_readme_temporal.png"
+    escala = "scale=800:3200:flags=lanczos"
+    borde = ("format=rgb24,"
+             "drawbox=x=0:y=0:w=16:h=ih:c=0x0d1117:t=fill,"
+             "drawbox=x=iw-16:y=0:w=16:h=ih:c=0x0d1117:t=fill,"
+             "drawbox=x=0:y=0:w=iw:h=16:c=0x0d1117:t=fill,"
+             "drawbox=x=0:y=ih-16:w=iw:h=16:c=0x0d1117:t=fill")
+    try:
+        subprocess.run([FFMPEG, "-y", "-i", str(GIF), "-vf",
+                        f"{escala},{borde},palettegen=max_colors=96:stats_mode=diff",
+                        str(paleta)], check=True, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.PIPE)
+        p = Image.open(paleta).convert("RGB")
+        pix = p.load()
+        for yy in range(p.height):
+            for xx in range(p.width):
+                r, g, b = pix[xx, yy]
+                if 8 <= r <= 15 and 13 <= g <= 19 and 19 <= b <= 26:
+                    pix[xx, yy] = (13, 17, 23)
+        p.save(paleta)
+        filtro = f"[0:v]{escala},{borde}[v];[v][1:v]paletteuse=dither=none"
+        subprocess.run([FFMPEG, "-y", "-i", str(GIF), "-i", str(paleta),
+                        "-filter_complex", filtro, "-loop", "0", str(GIF_README)],
+                       check=True, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.PIPE)
+    finally:
+        paleta.unlink(missing_ok=True)
+
+
 def main():
     render_video()
     render_gif()
+    render_gif_readme()
     print(VIDEO)
     print(GIF)
+    print(GIF_README)
 
 
 if __name__ == "__main__":
