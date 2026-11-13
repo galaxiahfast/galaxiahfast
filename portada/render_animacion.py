@@ -119,10 +119,10 @@ def render_video():
             # Cuatro naves: distintas velocidades y alturas.
             posiciones = (
                 (2250 - 520 * t, 640 + 35 * math.sin(t * 2.1)),
-                (-260 + 450 * t, 1710 + 30 * math.sin(t * 2.4)),
-                (2200 - 420 * t, 3610 + 20 * math.sin(t * 1.9)),
                 (950 - 700 * math.cos(math.tau * t / SEGUNDOS),
-                 2700 + 100 * math.sin(math.tau * t / SEGUNDOS)),
+                 1710 + 100 * math.sin(math.tau * t / SEGUNDOS)),
+                (2200 - 420 * t, 3610 + 20 * math.sin(t * 1.9)),
+                (-250 + 380 * t, 2700 + 45 * math.sin(t * 2.0)),
             )
             for i, ((nave, mascara), (px, py)) in enumerate(zip(naves, posiciones)):
                 nx, ny = int(px), int(py)
