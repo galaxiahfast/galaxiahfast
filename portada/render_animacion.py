@@ -17,6 +17,7 @@ ESTACION = CARPETA / "estacion_pixel.png"
 NAVE_USUARIO = CARPETA / "nave_usuario.png"
 NAVE_REDONDA = CARPETA / "nave_redonda.png"
 AVION_USUARIO = CARPETA / "avion_usuario.png"
+ASTRONAUTA = CARPETA / "astronauta_usuario.png"
 ANCHO, ALTO = 2000, 8000
 FPS, SEGUNDOS = 20, 10
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
@@ -67,11 +68,13 @@ def render_video():
     nave_fuente = Image.open(NAVE_REDONDA).convert("RGBA")
     satelite = Image.open(NAVE_USUARIO).convert("RGBA")
     satelite.thumbnail((220, 220))
+    astronauta = Image.open(ASTRONAUTA).convert("RGBA")
+    astronauta.thumbnail((70, 70))
     naves = []
     margen_luz = 40
-    for ancho in (70, 70, 70):
+    for ancho in (140, 140, 140, 140):
         nave = nave_fuente.copy()
-        nave.thumbnail((ancho, 70))
+        nave.thumbnail((ancho, 140))
         mascara = Image.new("L", (nave.width + 80, nave.height + 80))
         mascara.paste(nave.getchannel("A"), (margen_luz, margen_luz))
         mascara = mascara.filter(ImageFilter.GaussianBlur(20))
@@ -116,16 +119,12 @@ def render_video():
                     (1728, 6840, 4.1, 13)):
                 destello(d, sx, sy, t, fase, dorado=True, tamano=tamano)
 
-            ex = int((ANCHO - estacion_pixel.width) / 2
-                     + 8 * math.sin(math.tau * t / SEGUNDOS))
-            ey = int(250 + 16 * math.sin(math.tau * t / SEGUNDOS))
-            capa.alpha_composite(estacion_pixel, (ex, ey))
-            # Tres copias del diseño aportado, con recorridos independientes.
+            # Cuatro naves: distintas velocidades y alturas.
             posiciones = (
-                (2250 - 430 * (t - .7), 1950 + 100 * math.sin(t * 1.4)),
-                (-250 + 400 * (t - 2), 2600 + 75 * math.sin(t * 1.7)),
-                (550 + 750 * math.sin(math.tau * t / SEGUNDOS),
-                 3020 + 60 * math.sin(math.tau * t / SEGUNDOS)),
+                (2250 - 390 * t, 640 + 35 * math.sin(t * 1.4)),
+                (-260 + 330 * t, 1710 + 30 * math.sin(t * 1.6)),
+                (2200 - 300 * t, 3610 + 20 * math.sin(t * 1.2)),
+                (-250 + 260 * t, 2700 + 45 * math.sin(t * 1.3)),
             )
             for i, ((nave, mascara), (px, py)) in enumerate(zip(naves, posiciones)):
                 nx, ny = int(px), int(py)
@@ -136,10 +135,19 @@ def render_video():
                 halo.putalpha(mascara.point(lambda a: int(a * luz)))
                 capa.alpha_composite(halo, (nx - margen_luz, ny - margen_luz))
                 capa.alpha_composite(nave, (nx, ny))
+            # Las capas delanteras ocultan las naves que pasan por detrás.
+            ex = int((ANCHO - estacion_pixel.width) / 2
+                     + 8 * math.sin(math.tau * t / SEGUNDOS))
+            ey = int(250 + 16 * math.sin(math.tau * t / SEGUNDOS))
+            capa.alpha_composite(estacion_pixel, (ex, ey))
             for sx, sy, fase in ((430, 1680, 0), (1390, 2760, 2), (710, 3320, 4)):
                 dx = int(9 * math.sin(math.tau * t / SEGUNDOS + fase))
                 dy = int(12 * math.sin(math.tau * t / SEGUNDOS + fase))
                 capa.alpha_composite(satelite, (sx + dx, sy + dy))
+            for sx, sy, fase in ((1510, 1300, 0), (260, 2500, 2), (1550, 3900, 4)):
+                dx = int(18 * math.sin(math.tau * t / SEGUNDOS + fase))
+                dy = int(22 * math.sin(math.tau * t / SEGUNDOS + fase))
+                capa.alpha_composite(astronauta, (sx + dx, sy + dy))
             # Avión y cartel originales, de derecha a izquierda.
             ax = int(2250 - 320 * t + 35 * math.sin(math.tau * t / SEGUNDOS))
             ay = int(5870 + 45 * math.sin(math.tau * t / SEGUNDOS))
