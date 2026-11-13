@@ -13,7 +13,7 @@ BASE = CARPETA / "fondo_binario_2000x8000.png"
 VIDEO = CARPETA / "portada_cometas_2000x8000.mp4"
 GIF = CARPETA / "portada_cometas_2000x8000.gif"
 GIF_README = CARPETA / "portada_readme_800x3200.gif"
-ESTACION = CARPETA / "estacion_3d.png"
+ESTACION = CARPETA / "estacion_pixel.png"
 NAVE_USUARIO = CARPETA / "nave_usuario.png"
 NAVE_REDONDA = CARPETA / "nave_redonda.png"
 AVION_USUARIO = CARPETA / "avion_usuario.png"
@@ -63,15 +63,15 @@ def destello(d, x, y, t, fase=0, dorado=False, tamano=20):
 
 def render_video():
     base = Image.open(BASE).convert("RGBA")
-    estacion_3d = Image.open(ESTACION).convert("RGBA")
+    estacion_pixel = Image.open(ESTACION).convert("RGBA")
     nave_fuente = Image.open(NAVE_REDONDA).convert("RGBA")
     satelite = Image.open(NAVE_USUARIO).convert("RGBA")
     satelite.thumbnail((220, 220))
     naves = []
     margen_luz = 40
-    for ancho in (35, 35, 35):
+    for ancho in (70, 70, 70):
         nave = nave_fuente.copy()
-        nave.thumbnail((ancho, 35))
+        nave.thumbnail((ancho, 70))
         mascara = Image.new("L", (nave.width + 80, nave.height + 80))
         mascara.paste(nave.getchannel("A"), (margen_luz, margen_luz))
         mascara = mascara.filter(ImageFilter.GaussianBlur(20))
@@ -116,10 +116,10 @@ def render_video():
                     (1728, 6840, 4.1, 13)):
                 destello(d, sx, sy, t, fase, dorado=True, tamano=tamano)
 
-            ex = int((ANCHO - estacion_3d.width) / 2
+            ex = int((ANCHO - estacion_pixel.width) / 2
                      + 8 * math.sin(math.tau * t / SEGUNDOS))
-            ey = int(300 + 16 * math.sin(math.tau * t / SEGUNDOS))
-            capa.alpha_composite(estacion_3d, (ex, ey))
+            ey = int(250 + 16 * math.sin(math.tau * t / SEGUNDOS))
+            capa.alpha_composite(estacion_pixel, (ex, ey))
             # Tres copias del diseño aportado, con recorridos independientes.
             posiciones = (
                 (2250 - 430 * (t - .7), 1950 + 100 * math.sin(t * 1.4)),
