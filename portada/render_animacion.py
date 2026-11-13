@@ -68,9 +68,9 @@ def render_video():
     satelite.thumbnail((220, 220))
     naves = []
     margen_luz = 40
-    for ancho in (220, 220, 220):
+    for ancho in (140, 140, 140):
         nave = nave_fuente.copy()
-        nave.thumbnail((ancho, 220))
+        nave.thumbnail((ancho, 140))
         mascara = Image.new("L", (nave.width + 80, nave.height + 80))
         mascara.paste(nave.getchannel("A"), (margen_luz, margen_luz))
         mascara = mascara.filter(ImageFilter.GaussianBlur(20))
