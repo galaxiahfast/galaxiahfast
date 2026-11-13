@@ -77,7 +77,7 @@ def render_video():
         mascara = mascara.filter(ImageFilter.GaussianBlur(20))
         naves.append((nave, mascara))
     avion_usuario = Image.open(AVION_USUARIO).convert("RGBA")
-    avion_usuario.thumbnail((520, 230))
+    avion_usuario.thumbnail((260, 115))
     comando = [FFMPEG, "-y", "-f", "rawvideo", "-pixel_format", "rgb24",
                "-video_size", f"{ANCHO}x{ALTO}", "-framerate", str(FPS),
                "-i", "-", "-c:v", "libx264", "-preset", "veryfast",
