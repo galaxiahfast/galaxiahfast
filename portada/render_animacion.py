@@ -119,8 +119,8 @@ def render_video():
             # Cuatro naves: distintas velocidades y alturas.
             posiciones = (
                 (2250 - 520 * t, 640 + 35 * math.sin(t * 2.1)),
-                (-140 + 1140 * math.sin(math.pi * t / SEGUNDOS),
-                 1710 + 75 * math.sin(math.tau * t / SEGUNDOS)),
+                (-140 + 1140 * abs(math.sin(math.tau * t / SEGUNDOS)),
+                 1710 + 75 * math.sin(2 * math.tau * t / SEGUNDOS)),
                 (2200 - 420 * t, 3610 + 20 * math.sin(t * 1.9)),
                 (-250 + 380 * t, 2700 + 45 * math.sin(t * 2.0)),
             )
